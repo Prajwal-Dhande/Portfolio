@@ -11,6 +11,7 @@ interface Slide {
   tag: string;
   isCover?: boolean;
   isEnd?: boolean;
+  image?: string;
 }
 
 const slides: Slide[] = [
@@ -26,6 +27,7 @@ const slides: Slide[] = [
       "Optimized database queries and schema designs, significantly improving data retrieval efficiency.",
       "Collaborated on building interactive UIs and maintained a clean, scalable, and modular codebase.",
     ],
+    image: "/diagrams/codsoft.png" 
   },
   {
     id: "prodigy",
@@ -38,10 +40,11 @@ const slides: Slide[] = [
       "Implemented Computer Vision algorithms and structured scalable data processing pipelines.",
       "Trained and fine-tuned predictive models, enhancing accuracy and evaluation metrics.",
     ],
+    image: "/diagrams/prodigy.png" 
   },
   {
     id: "hackathon",
-    company: "National Level Hackathon",
+    company: "[Prototype 3.0] Hackathon",
     role: "Team Leader & Lead Developer",
     period: "Apr 2026",
     tag: "Agile Development",
@@ -50,6 +53,7 @@ const slides: Slide[] = [
       "Architected the application using WebSockets for live matchmaking and AI for automated constraints.",
       "Managed version control and delegated tasks, ensuring a bug-free project delivery under high-pressure conditions.",
     ],
+    image: "/diagrams/hackathon.jpeg" 
   },
   { id: "end", company: "Thank you.", role: "", period: "", tag: "", bullets: [], isEnd: true },
 ];
@@ -147,6 +151,8 @@ const diagrams: Record<string, () => React.JSX.Element> = {
 
 /* ── Slide content ───────────────────────────────────────── */
 function SlideContent({ slide, index, total, isMobile }: { slide: Slide; index: number; total: number; isMobile: boolean }) {
+  const Diagram = diagrams[slide.id];
+
   if (slide.isCover) {
     return (
       <div className="slide-cover-content h-full flex flex-col" style={{ background: "linear-gradient(135deg, #F5E8E2 0%, #EDD8D0 100%)", padding: "52px 60px" }}>
@@ -170,7 +176,7 @@ function SlideContent({ slide, index, total, isMobile }: { slide: Slide; index: 
     );
   }
 
-  /* ── Mobile layout: text top half, PNG bottom half ── */
+  /* ── Mobile layout: text top half, Certificate Image or SVG Diagram bottom half ── */
   if (isMobile) {
     return (
       <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#FAF6F0", overflow: "hidden" }}>
@@ -191,18 +197,20 @@ function SlideContent({ slide, index, total, isMobile }: { slide: Slide; index: 
           </div>
           <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(44,28,10,0.5)", marginTop: 14 }}>{slide.company}</p>
         </div>
-        {/* Bottom: PNG diagram */}
-        <div style={{ flex: "0 0 50%",minHeight: 80, borderTop: "1px solid rgba(0,0,0,0.06)", display: "flex", justifyContent: "center", padding: "5px", background: "#F7F2EB" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`/diagrams/${slide.id}.png`} alt="" style={{ width: "90%", height: 240, objectFit: "contain", borderRadius: "12px", top: "10%" }} />
+        {/* Bottom: Certificate Image (if available) OR SVG Diagram */}
+        <div style={{ flex: "0 0 50%", minHeight: 80, borderTop: "1px solid rgba(0,0,0,0.06)", display: "flex", justifyContent: "center", padding: "12px", background: "#F7F2EB", overflow: "hidden" }}>
+          {slide.image ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img src={slide.image} alt={slide.company} style={{ width: "90%", height: 240, objectFit: "contain", borderRadius: "12px" }} />
+          ) : (
+            Diagram && <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}><Diagram /></div>
+          )}
         </div>
       </div>
     );
   }
 
   /* ── Desktop layout ── */
-  const Diagram = diagrams[slide.id];
-
   return (
     <div className="slide-content-wrap h-full flex" style={{ background: "#FAF6F0" }}>
       {/* Left: text */}
@@ -228,7 +236,7 @@ function SlideContent({ slide, index, total, isMobile }: { slide: Slide; index: 
         </div>
       </div>
 
-      {/* Right: diagram */}
+      {/* Right: SVG diagram strictly for desktop view */}
       <div className="slide-diagram-panel" style={{ flex: "0 0 44%", borderLeft: "1px solid rgba(0,0,0,0.06)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: "14px 10px" }}>
         {Diagram && <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}><Diagram /></div>}
       </div>
