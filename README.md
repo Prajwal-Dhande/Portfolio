@@ -19,7 +19,7 @@
 
 <br/>
 
-![Portfolio Preview](public/preview2.png)
+![Portfolio Preview](public/preview.png)
 
 </div>
 
