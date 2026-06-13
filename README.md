@@ -8,7 +8,7 @@
 
 <br/>
 
-[![Portfolio](https://img.shields.io/badge/🌐%20Live%20Portfolio-visit-8B5CF6?style=for-the-badge&labelColor=1a1a2e)](https://prajwal-portfolio.vercel.app/)
+[![Portfolio](https://img.shields.io/badge/🌐%20Live%20Portfolio-visit-8B5CF6?style=for-the-badge&labelColor=1a1a2e)](https://portfolio-nine-blue-y25kovl2v7.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Prajwal_Dhande-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prajwal-dhande-57384b380)
 [![GitHub](https://img.shields.io/badge/GitHub-Prajwal--Dhande-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Prajwal-Dhande)
 [![Email](https://img.shields.io/badge/Email-Reach_Out-D44638?style=for-the-badge&logo=gmail&logoColor=white)](mailto:prajwaldhande017@gmail.com)
