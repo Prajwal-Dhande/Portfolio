@@ -54,14 +54,14 @@ export const projects: Project[] = [
   },
   {
     id: "nodeclash",
-    initials: "CA",
+    initials: "NC",
     color: "#7060B8",
     name: "NodeClash",
     year: "2026",
     categories: ["Fullstack", "WebSockets"],
     desc: "A real-time multiplayer coding platform utilizing WebSockets for live matchmaking and AI-driven constraints for competitive programming.",
     tech: ["Next.js", "Node.js", "Socket.io", "MongoDB", "AI Prompts"],
-    github: "https://github.com/Prajwal-Dhande/NodeClash",
+    github: "https://github.com/Prajwal-Dhande/CodeArena",
     live: "#",
     readme: [
       [["comment", "// README.md — NodeClash"]],
