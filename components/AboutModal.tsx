@@ -39,7 +39,7 @@ const notes = [
     content: (
       <>
         <p> 
-          Lately, I have been heavily focused on expanding my project portfolio. I recently built <strong>"Tattvam"</strong> (a nutritional analysis app using barcode scanning) and <strong>"CodeArena"</strong> (a real-time multiplayer coding platform).
+          Lately, I have been heavily focused on expanding my project portfolio. I recently built <strong>"Tattvam"</strong> (a nutritional analysis app using barcode scanning) and <strong>"NodeClash"</strong> (a real-time multiplayer coding platform).
         </p>
         <p>
           Beyond development, I maintain a strict daily routine on LeetCode for DSA and leverage the discipline I learned earning my NCC A-grade certificate to stay focused. I am always open to chatting about new ideas, Hackathon collaborations, or tech opportunities!

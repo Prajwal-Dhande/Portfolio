@@ -49,7 +49,7 @@ const slides: Slide[] = [
     period: "Apr 2026",
     tag: "Agile Development",
     bullets: [
-      "Led a cross-functional team to build **CodeArena**, a real-time multiplayer coding platform.",
+      "Led a cross-functional team to build **NodeClash**, a real-time multiplayer coding platform.",
       "Architected the application using WebSockets for live matchmaking and AI for automated constraints.",
       "Managed version control and delegated tasks, ensuring a bug-free project delivery under high-pressure conditions.",
     ],
@@ -129,9 +129,9 @@ function ProdigyDiagram() {
 function HackathonDiagram() {
   return (
     <div style={{ width: "100%", height: "100%", background: "#EDE8E2", borderRadius: 8, display: "flex", flexDirection: "column", padding: "12px 12px 10px", flex: 1 }}>
-      <p style={{ fontSize: 9, fontWeight: 700, color: "rgba(44,28,10,0.38)", letterSpacing: "0.1em", marginBottom: 8, textTransform: "uppercase" }}>CodeArena Execution</p>
+      <p style={{ fontSize: 9, fontWeight: 700, color: "rgba(44,28,10,0.38)", letterSpacing: "0.1em", marginBottom: 8, textTransform: "uppercase" }}>NodeClash Execution</p>
       <svg viewBox="0 0 218 240" style={{ flex: 1, width: "100%", overflow: "visible" }}>
-        <Box x={8} y={4} w={202} h={34} c={C.blue} label="CodeArena Platform Architecture" label2="(WebSockets, MERN Stack)" />
+        <Box x={8} y={4} w={202} h={34} c={C.blue} label="NodeClash Platform Architecture" label2="(WebSockets, MERN Stack)" />
         <VLine x={109} y1={38} y2={54} />
         <Box x={8} y={54} w={202} h={34} c={C.purple} label="Real-time Matchmaking Logic" label2="(Socket.io integration)" />
         <VLine x={109} y1={88} y2={104} />
