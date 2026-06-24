@@ -167,7 +167,7 @@ export default function Desktop() {
     { src: "/stickers/ironman.png", top: isMobile ? "35%" : "32%", left: isMobile ? "1%" : "6%", rot: -12, size: isMobile ? 40 : 68 },
     { src: "/stickers/coffee.png", top: isMobile ? "45%" : "54%", left: isMobile ? "2%" : "5%", rot: -10, size: isMobile ? 40 : 82 },
     { src: "/stickers/airpods.png", top: isMobile ? "22%" : "28%", right: isMobile ? "2%" : "6%", rot: -6, size: isMobile ? 35 : 72 },
-    { src: "/stickers/thor-hammer.png", top: isMobile ? "48%" : "56%", right: isMobile ? "2%" : "6%", rot: 8, size: isMobile ? 45 : 80 },
+    { src: "/stickers/Thor-hammer.png", top: isMobile ? "48%" : "56%", right: isMobile ? "2%" : "6%", rot: 8, size: isMobile ? 45 : 80 },
     { src: "/stickers/mongodb.png", bottom: isMobile ? "22%" : "14%", left: isMobile ? "4%" : "10%", rot: -8, size: isMobile ? 50 : 90 },
     { src: "/stickers/laptop-silver.png", bottom: isMobile ? "18%" : "10%", right: isMobile ? "4%" : "8%", rot: -5, size: isMobile ? 45 : 88 },
   ];
