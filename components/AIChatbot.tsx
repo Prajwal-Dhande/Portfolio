@@ -92,13 +92,9 @@ export default function AIChatbot() {
   return (
     <>
       {isOpen && (
-        <div style={{
-          position: 'fixed', bottom: '100px', right: '24px',
-          width: '400px', height: '580px', maxHeight: '80vh',
-          zIndex: 9999,
-          animation: 'slideIn 0.3s ease-out',
-          cursor: 'auto',
-        }}>
+        <div 
+          className="fixed z-[9999] animate-[slideIn_0.3s_ease-out] cursor-auto bottom-[90px] right-4 sm:bottom-[100px] sm:right-6 w-[calc(100vw-32px)] sm:w-[400px] h-[580px] max-h-[80vh]"
+        >
           <div style={{
             width: '100%', height: '100%',
             backgroundColor: '#1a1b2e',
@@ -291,7 +287,7 @@ export default function AIChatbot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-8 right-8 z-[9999] hover:scale-110 transition-transform duration-300 flex flex-col items-center group cursor-pointer border-none bg-transparent"
+          className="fixed bottom-[90px] right-4 sm:bottom-8 sm:right-8 z-[9999] hover:scale-110 transition-transform duration-300 flex flex-col items-center group cursor-pointer border-none bg-transparent"
           style={{ width: "70px", height: "70px" }}
           title="Chat with AI"
         >
