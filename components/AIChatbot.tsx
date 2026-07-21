@@ -13,6 +13,31 @@ const SUGGESTIONS = [
   "Tell me about him",
 ];
 
+// Glowing AI Icon for header
+const AIIcon = ({ size = 38 }: { size?: number }) => (
+  <div style={{ width: size, height: size, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 blur-[2px] opacity-90 animate-[spin_4s_linear_infinite]"></div>
+    <div className="relative w-[90%] h-[90%] rounded-full bg-black overflow-hidden border border-white/10 flex items-center justify-center z-10 shadow-inner">
+      <img src="/siri.png" alt="Siri" className="w-full h-full object-cover scale-105" onError={(e) => {
+        (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23222"/><text x="50" y="55" font-family="sans-serif" font-size="20" fill="white" text-anchor="middle">Siri</text></svg>';
+      }} />
+    </div>
+  </div>
+);
+
+// Floating trigger button with glowing effect
+const SiriIcon = ({ className = "" }: { className?: string }) => (
+  <div className={`relative flex items-center justify-center rounded-full ${className}`}>
+    <div className="absolute -inset-[2px] bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-full blur-[3px] opacity-80 animate-[spin_3s_linear_infinite]"></div>
+    <div className="absolute -inset-[6px] bg-gradient-to-r from-blue-500 via-cyan-400 to-fuchsia-500 rounded-full blur-[8px] opacity-50 animate-[spin_5s_linear_infinite_reverse]"></div>
+    <div className="relative w-full h-full rounded-full overflow-hidden border-[1.5px] border-white/40 shadow-[inset_0_0_10px_rgba(255,255,255,0.5),0_0_15px_rgba(0,0,0,0.8)] bg-black z-10">
+      <img src="/siri.png" alt="Siri" className="w-full h-full object-cover scale-105" onError={(e) => {
+        (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23222"/><text x="50" y="55" font-family="sans-serif" font-size="20" fill="white" text-anchor="middle">AI</text></svg>';
+      }} />
+    </div>
+  </div>
+);
+
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -39,7 +64,7 @@ export default function AIChatbot() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("http://localhost:3000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text }),
@@ -60,184 +85,217 @@ export default function AIChatbot() {
     }
   };
 
-  // Basic text formatter: strip out any asterisks or markdown to ensure clean text
-  const formatText = (text: string) => {
-    // Remove all asterisks just in case the AI still sends them
-    return text.replace(/\*/g, '');
+  const clearChat = () => {
+    setMessages([{ role: "ai", content: "Hey! What do you want to know about Prajwal? 👋" }]);
   };
 
   return (
     <>
-      {/* The Chat Modal */}
       {isOpen && (
-        <div 
-          className="fixed bottom-24 right-8 w-[380px] h-[600px] flex flex-col shadow-2xl z-[9999] rounded-2xl border border-white/10 cursor-auto"
-          style={{
-            background: "#111111", // Dark theme background
-            fontFamily: "system-ui, -apple-system, sans-serif"
-          }}
-        >
-          {/* Header */}
-          <div className="flex justify-between items-center px-5 py-4 shrink-0 border-b border-white/5">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center relative">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-[spin_3s_linear_infinite] blur-[2px] opacity-80"></div>
-                <div className="absolute inset-0.5 rounded-full bg-gradient-to-tr from-indigo-500 to-cyan-400 animate-[spin_4s_linear_infinite_reverse]"></div>
-                <div className="absolute inset-1 rounded-full bg-[#111] z-10 flex items-center justify-center border border-white/20">
-                  <span className="text-white text-[8px] font-bold tracking-wider">AI</span>
+        <div style={{
+          position: 'fixed', bottom: '100px', right: '24px',
+          width: '400px', height: '580px', maxHeight: '80vh',
+          zIndex: 9999,
+          animation: 'slideIn 0.3s ease-out',
+          cursor: 'auto',
+        }}>
+          <div style={{
+            width: '100%', height: '100%',
+            backgroundColor: '#1a1b2e',
+            borderRadius: '20px',
+            display: 'flex', flexDirection: 'column',
+            overflow: 'hidden',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(99,102,241,0.1)',
+            border: '1px solid rgba(255,255,255,0.08)',
+          }}>
+
+            {/* ===== HEADER ===== */}
+            <div style={{
+              padding: '16px 20px',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
+              flexShrink: 0,
+            }}>
+              {/* Left: AI Icon + Title */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <AIIcon size={38} />
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '15px', color: '#f0f0f5', letterSpacing: '0.3px' }}>Ask me anything</div>
+                  <div style={{ fontSize: '11px', color: '#6b7280', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', marginTop: '2px' }}>ABOUT PRAJWAL</div>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <span className="text-white font-semibold text-[15px] leading-tight">Ask me anything</span>
-                <span className="text-gray-500 text-[10px] font-bold tracking-widest uppercase">About Prajwal</span>
+              {/* Right: Action Buttons */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                {/* Sparkle */}
+                <button onClick={() => {}} style={{ width: '32px', height: '32px', borderRadius: '8px', border: 'none', backgroundColor: 'transparent', color: '#6b7280', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </button>
+                {/* New Chat */}
+                <button onClick={clearChat} style={{ width: '32px', height: '32px', borderRadius: '8px', border: 'none', backgroundColor: 'transparent', color: '#6b7280', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                {/* Clear */}
+                <button onClick={clearChat} style={{ width: '32px', height: '32px', borderRadius: '8px', border: 'none', backgroundColor: 'transparent', color: '#6b7280', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                </button>
+                {/* Close */}
+                <button onClick={() => setIsOpen(false)} style={{ width: '32px', height: '32px', borderRadius: '8px', border: 'none', backgroundColor: 'transparent', color: '#6b7280', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
               </div>
             </div>
-            
-            {/* Header Icons */}
-            <div className="flex items-center gap-3 text-gray-400">
-              {/* Analytics Icon */}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer hover:text-white transition-colors"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-              {/* Plus Icon */}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer hover:text-white transition-colors"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              {/* Delete Icon */}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="cursor-pointer hover:text-white transition-colors"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-              {/* Close Icon */}
-              <button onClick={() => setIsOpen(false)} className="cursor-pointer hover:text-white transition-colors ml-1">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-              </button>
-            </div>
-          </div>
 
-          {/* Chat Area */}
-          <div className="flex-1 overflow-y-auto p-5 pb-24 flex flex-col gap-6 scrollbar-hide relative text-white">
-            <div className="text-gray-500 text-xs font-semibold tracking-widest uppercase text-center mb-2">Prajwal's AI</div>
-            
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                {msg.role === "ai" ? (
-                  <div className="bg-[#1c1c1c] border border-white/10 rounded-2xl rounded-tl-sm px-5 py-4 text-[14px] leading-relaxed shadow-sm max-w-[92%] w-fit relative break-words">
-                    <p className="text-gray-200">{formatText(msg.content)}</p>
-                    {/* Badge */}
-                    <div className="mt-4 flex items-center gap-2">
-                      <div className="flex items-center gap-2 bg-black/40 border border-white/5 rounded-full px-2 py-1 cursor-pointer hover:bg-white/10 transition-colors">
-                        <div className="w-5 h-5 rounded-full flex items-center justify-center relative shrink-0">
-                          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-[spin_3s_linear_infinite] blur-[1px]"></div>
-                          <div className="absolute inset-0.5 rounded-full bg-black z-10"></div>
-                        </div>
-                        <span className="text-[11px] font-semibold pr-1 text-gray-300">Prajwal</span>
+            {/* ===== SUBTITLE ===== */}
+            <div style={{ textAlign: 'center', padding: '10px 0 4px', fontSize: '10px', color: '#4b5563', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase' }}>
+              PRAJWAL&apos;S AI
+            </div>
+
+            {/* ===== CHAT MESSAGES ===== */}
+            <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: '8px 20px 16px', position: 'relative' }} className="scrollbar-hide">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {messages.map((msg, idx) => (
+                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.role === "user" ? 'flex-end' : 'flex-start' }} className="animate-[fadeIn_0.3s_ease-out]">
+                    {msg.role === "user" ? (
+                      <div style={{
+                        maxWidth: '80%', padding: '12px 18px',
+                        backgroundColor: '#2d2f45', borderRadius: '18px 18px 6px 18px',
+                        color: '#e5e7eb', fontSize: '14px', fontWeight: 400,
+                        lineHeight: 1.6, wordBreak: 'break-word',
+                      }}>
+                        {msg.content}
                       </div>
-                    </div>
+                    ) : (
+                      <div>
+                        <div style={{
+                          maxWidth: '85%', padding: '14px 18px',
+                          backgroundColor: '#252740', borderRadius: '18px 18px 18px 6px',
+                          color: '#d1d5db', fontSize: '14px', fontWeight: 400,
+                          lineHeight: 1.7, wordBreak: 'break-word',
+                          border: '1px solid rgba(255,255,255,0.04)',
+                        }}>
+                          {msg.content.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+                            if (part.startsWith("**") && part.endsWith("**")) {
+                              return <strong key={i} style={{ fontWeight: 600, color: '#f3f4f6' }}>{part.slice(2, -2)}</strong>;
+                            }
+                            return part;
+                          })}
+                        </div>
+                        {/* AI label below message */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', paddingLeft: '4px' }}>
+                          <div style={{ width: '20px', height: '20px', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 blur-[1px] opacity-80"></div>
+                            <div className="relative w-[16px] h-[16px] rounded-full bg-[#111] border border-white/20 z-10"></div>
+                          </div>
+                          <span style={{ fontSize: '12px', color: '#6b7280', fontWeight: 500 }}>Prajwal</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div className="bg-white/10 text-white border border-white/20 rounded-2xl rounded-tr-sm px-4 py-2.5 text-[14px] leading-relaxed shadow-sm max-w-[85%] w-fit break-words font-medium">
-                    {msg.content}
+                ))}
+                
+                {/* Loading */}
+                {isLoading && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="animate-pulse">
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#6366f1' }} className="animate-bounce" />
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#8b5cf6', animationDelay: '0.1s' }} className="animate-bounce" />
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ec4899', animationDelay: '0.2s' }} className="animate-bounce" />
                   </div>
                 )}
+                
+                {/* Suggestions */}
+                {messages.length === 1 && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }} className="animate-[fadeIn_0.5s_ease-out]">
+                    {SUGGESTIONS.map(sug => (
+                      <button
+                        key={sug}
+                        onClick={() => handleSend(sug)}
+                        style={{
+                          padding: '10px 16px', borderRadius: '12px',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          backgroundColor: '#252740', color: '#9ca3af',
+                          fontSize: '13px', fontWeight: 500, cursor: 'pointer',
+                          transition: 'all 0.2s', whiteSpace: 'nowrap',
+                        }}
+                        className="hover:!bg-[#2d2f45] hover:!text-white hover:!border-[rgba(255,255,255,0.15)]"
+                      >
+                        {sug}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
               </div>
-            ))}
-            
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-[#1c1c1c] border border-white/10 rounded-2xl rounded-tl-sm px-5 py-4 text-gray-500 text-sm flex gap-1 shadow-sm">
-                  <span className="animate-pulse">●</span><span className="animate-pulse" style={{animationDelay: "200ms"}}>●</span><span className="animate-pulse" style={{animationDelay: "400ms"}}>●</span>
-                </div>
-              </div>
-            )}
-            
-            <div ref={messagesEndRef} />
-            
-            {/* Suggestions */}
-            {messages.length === 1 && (
-              <div className="flex flex-wrap gap-2 mt-4">
-                {SUGGESTIONS.map(sug => (
-                  <button
-                    key={sug}
-                    onClick={() => handleSend(sug)}
-                    className="px-4 py-2 rounded-full border border-white/10 bg-[#1a1a1a] text-gray-300 text-[13px] hover:bg-white/10 hover:text-white transition-all cursor-pointer font-medium"
-                  >
-                    {sug}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
 
-          {/* Footer Input Area */}
-          <div className="p-4 shrink-0 bg-[#111111] border-t border-white/5 rounded-b-2xl relative">
-            <form 
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSend(input);
-              }}
-              className="flex items-center gap-3 relative"
-            >
-              <input 
-                type="text" 
-                placeholder="ask something..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                className="flex-1 bg-transparent border border-white/20 rounded-full px-6 py-3 text-[14px] text-white placeholder-gray-500 focus:outline-none focus:border-white/50 transition-colors"
-                style={{ paddingLeft: '1.25rem', paddingRight: '1.25rem' }}
-              />
-              <button 
-                type="button" 
-                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-              </button>
-              <button 
-                type="submit" 
-                disabled={!input.trim() || isLoading}
-                className="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center disabled:opacity-50 hover:bg-white/20 transition-colors shrink-0 cursor-pointer"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-              </button>
-            </form>
-            
-            {/* Siri-style Glowing Orb */}
-            <div className="absolute right-4 bottom-[72px] w-14 h-14 pointer-events-none flex items-center justify-center z-50">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-[spin_4s_linear_infinite] blur-md opacity-80 scale-110"></div>
-              <div className="absolute inset-1 rounded-full bg-gradient-to-bl from-cyan-400 via-blue-500 to-purple-600 animate-[spin_3s_linear_infinite_reverse] blur-sm"></div>
-              <div className="absolute inset-2 rounded-full bg-black/80 z-10 flex items-center justify-center border border-white/10 shadow-inner">
-                <div className="w-3 h-3 rounded-full bg-white/20 animate-ping"></div>
-              </div>
+              {/* Glowing Orb (decorative) */}
+              <div style={{
+                position: 'absolute', bottom: '20px', right: '20px',
+                width: '70px', height: '70px', borderRadius: '50%',
+                background: 'radial-gradient(circle, #6366f1 0%, #4c1d95 40%, transparent 70%)',
+                filter: 'blur(2px)', opacity: 0.6,
+                pointerEvents: 'none',
+              }} />
+            </div>
+
+            {/* ===== INPUT AREA ===== */}
+            <div style={{
+              padding: '14px 20px 18px',
+              borderTop: '1px solid rgba(255,255,255,0.06)',
+              flexShrink: 0,
+            }}>
+              <form onSubmit={(e) => { e.preventDefault(); handleSend(input); }} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="ask something..."
+                  style={{
+                    flex: 1, backgroundColor: '#1e1f2e',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    color: '#e5e7eb', fontSize: '14px', fontWeight: 400,
+                    padding: '12px 18px', borderRadius: '999px',
+                    outline: 'none', transition: 'all 0.2s',
+                  }}
+                  className="focus:!border-[rgba(255,255,255,0.2)] placeholder:text-gray-500"
+                />
+                {/* Mic icon */}
+                <button type="button" style={{
+                  width: '36px', height: '36px', borderRadius: '10px',
+                  border: 'none', backgroundColor: 'transparent',
+                  color: '#6b7280', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="9" y="1" width="6" height="11" rx="3"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="23" x2="12" y2="17"/></svg>
+                </button>
+                {/* Send icon */}
+                <button
+                  type="submit"
+                  disabled={!input.trim()}
+                  style={{
+                    width: '36px', height: '36px', borderRadius: '10px',
+                    border: 'none', backgroundColor: 'transparent',
+                    color: input.trim() ? '#818cf8' : '#4b5563',
+                    cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    transition: 'color 0.2s',
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+              </form>
             </div>
           </div>
         </div>
       )}
 
-      {/* Siri-style Avatar Trigger Button (When Chat is closed) */}
+      {/* Floating Trigger Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-8 right-8 z-[9999] hover:scale-110 transition-transform duration-300 flex flex-col items-center group cursor-pointer border-none bg-transparent"
-          style={{ width: "80px", height: "80px" }}
+          style={{ width: "70px", height: "70px" }}
           title="Chat with AI"
         >
-          <div className="w-full h-full relative flex items-center justify-center">
-            {/* Outer Glow */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 animate-[spin_4s_linear_infinite] blur-lg opacity-70 group-hover:opacity-100 transition-opacity"></div>
-            {/* Inner Core */}
-            <div className="absolute inset-2 rounded-full bg-gradient-to-tr from-purple-500 via-indigo-500 to-pink-500 animate-[spin_3s_linear_infinite_reverse] blur-sm"></div>
-            {/* Center Dark Sphere */}
-            <div className="absolute inset-3 rounded-full bg-[#111] z-10 flex items-center justify-center border border-white/20 shadow-[inset_0_0_15px_rgba(255,255,255,0.2)]">
-               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#siri-gradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse">
-                  <defs>
-                    <linearGradient id="siri-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop stopColor="#38bdf8" offset="0%" />
-                      <stop stopColor="#c084fc" offset="100%" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
-                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                  <line x1="12" y1="19" x2="12" y2="22"></line>
-               </svg>
-            </div>
-          </div>
-          
-          <div className="absolute -top-14 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1c1c1c] text-white text-xs px-4 py-2 rounded-xl border border-white/10 shadow-lg whitespace-nowrap font-medium">
-            Ask AI Assistant ✦
-          </div>
+          <SiriIcon className="w-full h-full shadow-2xl rounded-full" />
         </button>
       )}
     </>

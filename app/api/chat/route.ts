@@ -1,9 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 
-// Ensure the API key is available
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-
 export async function POST(req: Request) {
   if (!process.env.GEMINI_API_KEY) {
     return NextResponse.json(
@@ -12,6 +9,9 @@ export async function POST(req: Request) {
     );
   }
 
+  // Ensure the API key is available
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
   try {
     const { message } = await req.json();
 
@@ -19,8 +19,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: "Message is required" }, { status: 400 });
     }
 
-    // Using gemini-flash-latest for fast text responses
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    // Using gemini-2.5-flash
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const systemPrompt = `You are Prajwal's AI Assistant, built to answer questions about him on his portfolio. 
     CRITICAL RULES:
