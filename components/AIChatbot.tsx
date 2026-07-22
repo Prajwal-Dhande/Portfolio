@@ -93,17 +93,9 @@ export default function AIChatbot() {
     <>
       {isOpen && (
         <div 
-          className="fixed z-[9999] animate-[slideIn_0.3s_ease-out] cursor-auto bottom-[90px] right-4 sm:bottom-[100px] sm:right-6 w-[calc(100vw-32px)] sm:w-[400px] h-[580px] max-h-[80vh]"
+          className="fixed z-[9999] animate-[slideIn_0.3s_ease-out] cursor-auto inset-0 sm:inset-auto sm:bottom-[100px] sm:right-6 w-full sm:w-[400px] h-[100dvh] sm:h-[580px] sm:max-h-[80vh]"
         >
-          <div style={{
-            width: '100%', height: '100%',
-            backgroundColor: '#1a1b2e',
-            borderRadius: '20px',
-            display: 'flex', flexDirection: 'column',
-            overflow: 'hidden',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(99,102,241,0.1)',
-            border: '1px solid rgba(255,255,255,0.08)',
-          }}>
+          <div className="w-full h-full bg-[#1a1b2e] flex flex-col overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(99,102,241,0.1)] border border-white/10 rounded-none sm:rounded-[20px]">
 
             {/* ===== HEADER ===== */}
             <div style={{
