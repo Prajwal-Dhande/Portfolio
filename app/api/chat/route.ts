@@ -19,8 +19,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ reply: "Message is required" }, { status: 400 });
     }
 
-    // Using gemini-2.5-flash
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    // Using gemini-flash-latest (future proof)
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     const systemPrompt = `You are Prajwal's AI Assistant, built to answer questions about him on his portfolio. 
     CRITICAL RULES:
