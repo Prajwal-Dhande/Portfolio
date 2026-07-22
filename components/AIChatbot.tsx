@@ -45,6 +45,7 @@ export default function AIChatbot() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -93,9 +94,11 @@ export default function AIChatbot() {
     <>
       {isOpen && (
         <div 
-          className="fixed z-[9999] animate-[slideIn_0.3s_ease-out] cursor-auto inset-0 sm:inset-auto sm:bottom-[100px] sm:right-6 w-full sm:w-[400px] h-[100dvh] sm:h-[580px] sm:max-h-[80vh]"
+          className={`fixed z-[9999] animate-[slideIn_0.3s_ease-out] cursor-auto right-4 sm:right-6 w-[calc(100vw-32px)] sm:w-[400px] h-[580px] max-h-[65vh] sm:max-h-[80vh] transition-all duration-300 ${
+            isInputFocused ? 'top-4 bottom-auto sm:top-auto sm:bottom-[100px]' : 'bottom-[90px] top-auto sm:top-auto sm:bottom-[100px]'
+          }`}
         >
-          <div className="w-full h-full bg-[#1a1b2e] flex flex-col overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(99,102,241,0.1)] border border-white/10 rounded-none sm:rounded-[20px]">
+          <div className="w-full h-full bg-[#1a1b2e] flex flex-col overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_40px_rgba(99,102,241,0.1)] border border-white/10 rounded-[20px]">
 
             {/* ===== HEADER ===== */}
             <div style={{
@@ -235,6 +238,8 @@ export default function AIChatbot() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
                   placeholder="ask something..."
                   style={{
                     flex: 1, backgroundColor: '#1e1f2e',
