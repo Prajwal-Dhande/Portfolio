@@ -22,7 +22,7 @@ const notes = [
           I&apos;m actively looking for <strong>Internships and full-time Software Engineering roles</strong> where I can ship fast, integrate AI into real-world applications, and grow alongside a team of passionate developers. 🦾
         </p>
         <p>
-          My core stack: <strong>MongoDB · Express.js · React · Node.js · Java · TensorFlow · OpenCV</strong>
+          My core stack: <strong>MongoDB · Express.js · React · Node.js · Next.js · Java · TypeScript</strong>
           {" "} and whatever the problem needs to be solved. 🙌🏼
         </p>
         <p>
@@ -58,7 +58,7 @@ const notes = [
           I&apos;m most comfortable adapting quickly and moving one step closer to doing better by trial and errors, and then debugging those - fueled by strong coffee ☕. I&apos;m always eager to learn new technologies and tools that bridge the gap between Web Development and Artificial Intelligence. If you have any recommendations or want to chat about tech, hit me up! 💯
         </p>
         <ul style={{ marginLeft: 20, marginTop: 12, listStyleType: "disc", paddingLeft: 20 }}>
-          <li><strong>Languages & Libraries:</strong> JavaScript, TypeScript, Python, Java, React, Next.js, Express.js, Node.js, TensorFlow, PyTorch, Sklearn, OpenCV, Tailwind CSS, HTML/CSS.</li>
+          <li><strong>Languages & Libraries:</strong> JavaScript, TypeScript, Java, React, Next.js, Express.js, Node.js, Tailwind CSS, HTML/CSS.</li>
           <br></br>
           <li><strong>Tools & Databases:</strong> MongoDB, SQL, Git/GitHub, Docker, Render, GCP, CI/CD pipelines, Postman.</li>
         </ul>

@@ -30,7 +30,8 @@ export async function POST(req: Request) {
     
     Context about Prajwal:
     - B.Tech student in AI & Data Science at G.H. Raisoni College, Nagpur.
-    - Fullstack developer & AI Engineer.
+    - Fullstack developer & AI Engineer. His core stack is MERN (MongoDB, Express, React, Node), Next.js, TypeScript, and Java.
+    - CRITICAL FACT: He DOES NOT use Python. He builds AI apps using APIs and JavaScript/TypeScript.
     - Projects: 'NodeClash' (real-time multiplayer MERN) and 'Tattvam' (nutrition app with barcode scanning).
     - Practices LeetCode daily for DSA.
     
